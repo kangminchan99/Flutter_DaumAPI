@@ -55,16 +55,6 @@ class _BlogPageState extends State<BlogPage> {
             );
           }
         },
-        // return ListView.builder(
-        //   itemCount: blogList.length,
-        //   itemBuilder: (context, index) {
-        //     final blogData = blogList[index];
-        //     return ListTile(
-        //       title: Text(blogData['title']),
-        //       subtitle: Text(blogData['contents']),
-        //     );
-        //   },
-        // ),
       ),
     );
   }
