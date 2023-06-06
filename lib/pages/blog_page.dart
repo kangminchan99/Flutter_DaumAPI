@@ -34,15 +34,37 @@ class _BlogPageState extends State<BlogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: blogList.length,
-        itemBuilder: (context, index) {
-          final blogData = blogList[index];
-          return ListTile(
-            title: Text(blogData['title']),
-            subtitle: Text(blogData['contents']),
-          );
+      body: FutureBuilder(
+        future: blogModel.fetchBlog(widget.blogText),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            blogList = blogModel.blogData;
+            return ListView.builder(
+              itemCount: blogList.length,
+              itemBuilder: (context, index) {
+                final blogData = blogList[index];
+                return ListTile(
+                  title: Text(blogData['title']),
+                  subtitle: Text(blogData['contents']),
+                );
+              },
+            );
+          }
         },
+        // return ListView.builder(
+        //   itemCount: blogList.length,
+        //   itemBuilder: (context, index) {
+        //     final blogData = blogList[index];
+        //     return ListTile(
+        //       title: Text(blogData['title']),
+        //       subtitle: Text(blogData['contents']),
+        //     );
+        //   },
+        // ),
       ),
     );
   }
