@@ -13,8 +13,10 @@ class _BlogPageState extends State<BlogPage> {
   BlogModel blogModel = BlogModel();
   List<dynamic> blogList = []; // 블로그 데이터를 저장할 리스트
 
+  void update() => setState(() {});
   @override
   void initState() {
+    blogModel.recenBlog();
     super.initState();
     // fetchBlog 메서드 호출 예시
     fetchData();
@@ -22,10 +24,14 @@ class _BlogPageState extends State<BlogPage> {
 
   Future<void> fetchData() async {
     try {
-      await blogModel.fetchBlog(widget.blogText);
-      setState(() {
-        blogList = blogModel.blogData; // 블로그 데이터를 리스트에 저장
-      });
+      if (widget.blogText == '' || widget.blogText.isEmpty) {
+        update();
+        blogModel.recenBlog();
+      } else {
+        await blogModel.fetchBlog(widget.blogText);
+      }
+      update();
+      blogList = blogModel.blogData; // 블로그 데이터를 리스트에 저장
     } catch (error) {
       print('Error: $error');
     }
@@ -38,7 +44,7 @@ class _BlogPageState extends State<BlogPage> {
         future: blogModel.fetchBlog(widget.blogText),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {

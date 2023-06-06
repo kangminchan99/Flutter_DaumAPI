@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../model/blog_model.dart';
 import 'blog_page.dart';
 import 'image_page.dart';
 import 'vedio_page.dart';
@@ -15,6 +16,7 @@ class _MainPageState extends State<MainPage>
   late TabController tabController = TabController(length: 3, vsync: this);
   TextEditingController textEditingController = TextEditingController();
   String blogText = '';
+  BlogModel blogModel = BlogModel();
 
   void update() => setState(() {});
 
@@ -34,12 +36,6 @@ class _MainPageState extends State<MainPage>
         actions: [
           IconButton(
             onPressed: handleSearch,
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => BlogPage(blogText: blogText),
-            //   ),
-            // );
             icon: const Icon(Icons.search),
           ),
         ],
