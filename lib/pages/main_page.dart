@@ -1,3 +1,4 @@
+import 'package:daum_api/controller/tab_page_controller.dart';
 import 'package:flutter/material.dart';
 import '../model/blog_model.dart';
 import 'blog_page.dart';
@@ -14,15 +15,27 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController = TabController(length: 3, vsync: this);
-  TextEditingController textEditingController = TextEditingController();
   String blogText = '';
+  String vedioText = '';
+  String imageText = '';
   BlogModel blogModel = BlogModel();
+  TabPageController tabpageController = TabPageController();
+
+  @override
+  void initState() {
+    super.initState();
+    tabpageController.blogEditingController = TextEditingController();
+    tabpageController.vedioEditingController = TextEditingController();
+    tabpageController.imageEditingController = TextEditingController();
+  }
 
   void update() => setState(() {});
 
   void handleSearch() {
     update();
-    blogText = textEditingController.text; // 텍스트 값 저장
+    blogText = tabpageController.blogEditingController.text; // 텍스트 값 저장
+    vedioText = tabpageController.vedioEditingController.text;
+    imageText = tabpageController.vedioEditingController.text;
   }
 
   @override
@@ -30,7 +43,7 @@ class _MainPageState extends State<MainPage>
     return Scaffold(
       appBar: AppBar(
         title: TextFormField(
-          controller: textEditingController,
+          controller: tabpageController.textEditingController,
         ),
         leading: Image.asset('images/dlogo.jpeg'),
         actions: [
@@ -44,6 +57,7 @@ class _MainPageState extends State<MainPage>
         children: [
           TabBar(
             controller: tabController,
+            onTap: tabpageController.handleTabChange,
             tabs: const [
               Tab(text: '블로그'),
               Tab(text: '동영상'),
@@ -57,8 +71,12 @@ class _MainPageState extends State<MainPage>
                 BlogPage(
                   blogText: blogText,
                 ),
-                const VedioPage(),
-                const ImagePage(),
+                VedioPage(
+                  vedioText: vedioText,
+                ),
+                ImagePage(
+                  imageText: imageText,
+                ),
               ],
             ),
           ),
