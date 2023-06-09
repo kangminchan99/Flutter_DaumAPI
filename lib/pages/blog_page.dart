@@ -19,10 +19,10 @@ class _BlogPageState extends State<BlogPage> {
     blogModel.recenBlog();
     super.initState();
     // fetchBlog 메서드 호출 예시
-    fetchData();
+    fetchBlogData();
   }
 
-  Future<void> fetchData() async {
+  Future<void> fetchBlogData() async {
     try {
       if (widget.blogText == '' || widget.blogText.isEmpty) {
         update();
