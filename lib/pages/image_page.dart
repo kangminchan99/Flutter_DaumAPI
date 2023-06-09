@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ImagePage extends StatefulWidget {
-  const ImagePage({super.key});
+  const ImagePage({required this.imageText, super.key});
+  final String imageText;
 
   @override
   State<ImagePage> createState() => _ImagePageState();
