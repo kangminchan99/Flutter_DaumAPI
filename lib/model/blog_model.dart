@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class BlogModel {
   static String? apiKey = dotenv.env['Rest_ApiKey'];
-  List<dynamic> blogData = [];
+  List<dynamic> blogList = [];
   RemoveHtml removeHtml = RemoveHtml();
 
   Future<void> fetchBlog(String blogQuery) async {
@@ -18,10 +18,10 @@ class BlogModel {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      blogData = data['documents'];
+      blogList = data['documents'];
 
       // HTML 태그 제거
-      blogData = blogData.map((blog) {
+      blogList = blogList.map((blog) {
         final title = removeHtml.delHtml(blog['title']);
         final contents = removeHtml.delHtml(blog['contents']);
         return {
@@ -47,10 +47,10 @@ class BlogModel {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      blogData = data['documents'];
+      blogList = data['documents'];
 
       // HTML 태그 제거
-      blogData = blogData.map((blog) {
+      blogList = blogList.map((blog) {
         final title = removeHtml.delHtml(blog['title']);
         final contents = removeHtml.delHtml(blog['contents']);
         return {
