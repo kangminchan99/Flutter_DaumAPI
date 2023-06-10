@@ -18,7 +18,41 @@ class ImageModel {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      imageData = data['documents'];
+      imageList = data['documents'];
+
+      imageList = imageList.map((image) {
+        final docUrl = removeHtml.delHtml(image['doc_url']);
+        final imageUrl = removeHtml.delHtml(image['image_url']);
+        return {
+          'docUrl': docUrl,
+          'imageUrl': imageUrl,
+        };
+      }).toList();
+    } else {
+      print('api error: ${response.statusCode}');
+    }
+  }
+
+  Future<void> recenImage() async {
+    const apiUrl =
+        'https://dapi.kakao.com/v2/search/image?query=recent&sort=recency';
+    final header = {'Authorization': 'KakaoAK $apiKey'};
+    final response = await http.get(Uri.parse(apiUrl), headers: header);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      imageList = data['documents'];
+      // HTML 태그 제거
+      imageList = imageList.map((image) {
+        final docUrl = removeHtml.delHtml(image['docUrl']);
+        final imageUrl = removeHtml.delHtml(image['imageUrl']);
+        return {
+          'docUrl': docUrl,
+          'imageUrl': imageUrl,
+        };
+      }).toList();
+    } else {
+      print('api error: ${response.statusCode}');
     }
   }
 }
