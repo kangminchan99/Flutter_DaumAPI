@@ -31,7 +31,7 @@ class _BlogPageState extends State<BlogPage> {
         await blogModel.fetchBlog(widget.blogText);
       }
       update();
-      blogList = blogModel.blogData; // 블로그 데이터를 리스트에 저장
+      blogList = blogModel.blogList; // 블로그 데이터를 리스트에 저장
     } catch (error) {
       print('Error: $error');
     }
@@ -48,7 +48,7 @@ class _BlogPageState extends State<BlogPage> {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
-            blogList = blogModel.blogData;
+            blogList = blogModel.blogList;
             return ListView.builder(
               itemCount: blogList.length,
               itemBuilder: (context, index) {
