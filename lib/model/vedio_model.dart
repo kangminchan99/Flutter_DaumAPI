@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class VedioModel {
   static String? apiKey = dotenv.env['Rest_ApiKey'];
-  List<dynamic> vedioData = [];
+  List<dynamic> vedioList = [];
   RemoveHtml removeHtml = RemoveHtml();
 
   Future<void> fetchVedio(String vedioQuery) async {
@@ -21,10 +21,10 @@ class VedioModel {
     // decode로 표시
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      vedioData = data['documents'];
+      vedioList = data['documents'];
 
       // HTML 태그 제거
-      vedioData = vedioData.map((vedio) {
+      vedioList = vedioList.map((vedio) {
         final title = removeHtml.delHtml(vedio['title']);
         final url = removeHtml.delHtml(vedio['url']);
         return {
@@ -50,10 +50,10 @@ class VedioModel {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      vedioData = data['documents'];
+      vedioList = data['documents'];
 
       // HTML 태그 제거
-      vedioData = vedioData.map((vedio) {
+      vedioList = vedioList.map((vedio) {
         final title = removeHtml.delHtml(vedio['title']);
         final url = removeHtml.delHtml(vedio['url']);
         return {

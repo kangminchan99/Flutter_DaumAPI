@@ -32,7 +32,7 @@ class _VedioPageState extends State<VedioPage> {
         await vedioModel.fetchVedio(widget.vedioText);
       }
       update();
-      vedioList = vedioModel.vedioData; // 블로그 데이터를 리스트에 저장
+      vedioList = vedioModel.vedioList; // 블로그 데이터를 리스트에 저장
     } catch (error) {
       print('Error: $error');
     }
@@ -51,7 +51,7 @@ class _VedioPageState extends State<VedioPage> {
           } else if (snapshot.hasError) {
             return Text('error: ${snapshot.error}');
           } else {
-            vedioList = vedioModel.vedioData;
+            vedioList = vedioModel.vedioList;
             return ListView.builder(
               itemCount: vedioList.length,
               itemBuilder: (context, index) {
