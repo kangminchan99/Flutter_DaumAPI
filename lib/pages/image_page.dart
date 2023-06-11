@@ -1,3 +1,4 @@
+import 'package:daum_api/model/image_model.dart';
 import 'package:flutter/material.dart';
 
 class ImagePage extends StatefulWidget {
@@ -9,10 +10,57 @@ class ImagePage extends StatefulWidget {
 }
 
 class _ImagePageState extends State<ImagePage> {
+  List<dynamic> imageList = [];
+  ImageModel imageModel = ImageModel();
+  void update() => setState(() {});
+
+  @override
+  void initState() {
+    imageModel.recenImage();
+    super.initState();
+    fetchImageData();
+  }
+
+  Future<void> fetchImageData() async {
+    try {
+      update();
+      imageList = imageModel.imageList;
+      if (widget.imageText == '' || widget.imageText.isEmpty) {
+        update();
+        imageModel.recenImage();
+      } else {
+        await imageModel.fetchImage(widget.imageText);
+      }
+    } catch (error) {
+      print('error: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('image'),
+      body: FutureBuilder(
+          future: imageModel.fetchImage(widget.imageText),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              imageList = imageModel.imageList;
+              return ListView.builder(
+                  itemCount: imageList.length,
+                  itemBuilder: (context, index) {
+                    final imageData = imageList[index];
+                    return ListTile(
+                      title: Text(imageData['doc_url']),
+                      subtitle: Text(imageData['image_url']),
+                    );
+                  });
+            }
+          }),
     );
   }
 }

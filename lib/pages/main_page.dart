@@ -35,7 +35,7 @@ class _MainPageState extends State<MainPage>
     update();
     blogText = tabpageController.blogEditingController.text; // 텍스트 값 저장
     vedioText = tabpageController.vedioEditingController.text;
-    imageText = tabpageController.vedioEditingController.text;
+    imageText = tabpageController.imageEditingController.text;
   }
 
   @override
