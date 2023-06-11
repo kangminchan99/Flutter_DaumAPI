@@ -44,8 +44,8 @@ class ImageModel {
       imageList = data['documents'];
       // HTML 태그 제거
       imageList = imageList.map((image) {
-        final docUrl = removeHtml.delHtml(image['docUrl']);
-        final imageUrl = removeHtml.delHtml(image['imageUrl']);
+        final docUrl = removeHtml.delHtml(image['doc_url']);
+        final imageUrl = removeHtml.delHtml(image['image_url']);
         return {
           'docUrl': docUrl,
           'imageUrl': imageUrl,

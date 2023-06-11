@@ -10,8 +10,8 @@ class BlogPage extends StatefulWidget {
 }
 
 class _BlogPageState extends State<BlogPage> {
-  BlogModel blogModel = BlogModel();
   List<dynamic> blogList = []; // 블로그 데이터를 저장할 리스트
+  BlogModel blogModel = BlogModel();
 
   void update() => setState(() {});
   @override
@@ -24,14 +24,14 @@ class _BlogPageState extends State<BlogPage> {
 
   Future<void> fetchBlogData() async {
     try {
+      update();
+      blogList = blogModel.blogList; // 블로그 데이터를 리스트에 저장
       if (widget.blogText == '' || widget.blogText.isEmpty) {
         update();
         blogModel.recenBlog();
       } else {
         await blogModel.fetchBlog(widget.blogText);
       }
-      update();
-      blogList = blogModel.blogList; // 블로그 데이터를 리스트에 저장
     } catch (error) {
       print('Error: $error');
     }

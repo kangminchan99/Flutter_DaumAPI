@@ -25,14 +25,14 @@ class _VedioPageState extends State<VedioPage> {
 
   Future<void> fetchVedioData() async {
     try {
+      update();
+      vedioList = vedioModel.vedioList; // 블로그 데이터를 리스트에 저장
       if (widget.vedioText == '' || widget.vedioText.isEmpty) {
         update();
         vedioModel.recenVedio();
       } else {
         await vedioModel.fetchVedio(widget.vedioText);
       }
-      update();
-      vedioList = vedioModel.vedioList; // 블로그 데이터를 리스트에 저장
     } catch (error) {
       print('Error: $error');
     }
