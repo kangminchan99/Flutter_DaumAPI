@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:daum_api/components/remove_html.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class ImageModel {
   static String? apiKey = dotenv.env['Rest_ApiKey'];
@@ -53,6 +54,15 @@ class ImageModel {
       }).toList();
     } else {
       print('api error: ${response.statusCode}');
+    }
+  }
+
+  Future<void> goToImageUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 }
