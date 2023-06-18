@@ -54,9 +54,14 @@ class _ImagePageState extends State<ImagePage> {
                   itemCount: imageList.length,
                   itemBuilder: (context, index) {
                     final imageData = imageList[index];
-                    return ListTile(
-                      title: Text(imageData['doc_url']),
-                      subtitle: Text(imageData['image_url']),
+                    return InkWell(
+                      onTap: () {
+                        imageModel.goToImageUrl(imageData['imageUrl']);
+                      },
+                      child: ListTile(
+                        title: Text(imageData['docUrl']),
+                        subtitle: Text(imageData['imageUrl']),
+                      ),
                     );
                   });
             }
