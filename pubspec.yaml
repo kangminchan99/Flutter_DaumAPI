@@ -39,6 +39,8 @@ dependencies:
   http: ^1.0.0
   html: ^0.15.3
   url_launcher: ^6.1.11
+  # 유튜브 영상 재생 패키지
+  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:
