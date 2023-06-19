@@ -40,32 +40,33 @@ class _ImagePageState extends State<ImagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: imageModel.fetchImage(widget.imageText),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              imageList = imageModel.imageList;
-              return ListView.builder(
-                  itemCount: imageList.length,
-                  itemBuilder: (context, index) {
-                    final imageData = imageList[index];
-                    return InkWell(
-                      onTap: () {
-                        imageModel.goToImageUrl(imageData['imageUrl']);
-                      },
-                      child: ListTile(
-                        title: Text(imageData['docUrl']),
-                        subtitle: Text(imageData['imageUrl']),
-                      ),
-                    );
-                  });
-            }
-          }),
+        future: imageModel.fetchImage(widget.imageText),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            imageList = imageModel.imageList;
+            return ListView.builder(
+              itemCount: imageList.length,
+              itemBuilder: (context, index) {
+                final imageData = imageList[index];
+                // return InkWell(
+                //   onTap: () {
+                //     imageModel.goToImageUrl(imageData['imageUrl']);
+                //   },
+                return ListTile(
+                  title: Text(imageData['docUrl']),
+                  subtitle: Text(imageData['imageUrl']),
+                );
+              },
+            );
+          }
+        },
+      ),
     );
   }
 }

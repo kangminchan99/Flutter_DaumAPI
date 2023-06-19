@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/blog_model.dart';
 import 'blog_page.dart';
 import 'image_page.dart';
-import 'vedio_page.dart';
+import 'vedio/video_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -16,7 +16,7 @@ class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController = TabController(length: 3, vsync: this);
   String blogText = '';
-  String vedioText = '';
+  String videoText = '';
   String imageText = '';
   BlogModel blogModel = BlogModel();
   TabPageController tabpageController = TabPageController();
@@ -34,7 +34,7 @@ class _MainPageState extends State<MainPage>
   void handleSearch() {
     update();
     blogText = tabpageController.blogEditingController.text; // 텍스트 값 저장
-    vedioText = tabpageController.vedioEditingController.text;
+    videoText = tabpageController.vedioEditingController.text;
     imageText = tabpageController.imageEditingController.text;
   }
 
@@ -71,8 +71,8 @@ class _MainPageState extends State<MainPage>
                 BlogPage(
                   blogText: blogText,
                 ),
-                VedioPage(
-                  vedioText: vedioText,
+                VideoPage(
+                  videoText: videoText,
                 ),
                 ImagePage(
                   imageText: imageText,
