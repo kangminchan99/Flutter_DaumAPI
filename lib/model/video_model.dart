@@ -4,15 +4,15 @@ import 'package:daum_api/components/remove_html.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-class VedioModel {
+class VideoModel {
   static String? apiKey = dotenv.env['Rest_ApiKey'];
-  List<dynamic> vedioList = [];
+  List<dynamic> videoList = [];
   RemoveHtml removeHtml = RemoveHtml();
 
-  Future<void> fetchVedio(String vedioQuery) async {
+  Future<void> fetchVideo(String videoQuery) async {
     final apiUrl =
         // encode로 받아오고
-        'https://dapi.kakao.com/v2/search/vclip?query=${Uri.encodeComponent(vedioQuery)}';
+        'https://dapi.kakao.com/v2/search/vclip?query=${Uri.encodeComponent(videoQuery)}';
     final headers = {
       'Authorization': 'KakaoAK $apiKey',
     };
@@ -21,10 +21,10 @@ class VedioModel {
     // decode로 표시
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      vedioList = data['documents'];
+      videoList = data['documents'];
 
       // HTML 태그 제거
-      vedioList = vedioList.map((vedio) {
+      videoList = videoList.map((vedio) {
         final title = removeHtml.delHtml(vedio['title']);
         final url = removeHtml.delHtml(vedio['url']);
         return {
@@ -50,12 +50,12 @@ class VedioModel {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      vedioList = data['documents'];
+      videoList = data['documents'];
 
       // HTML 태그 제거
-      vedioList = vedioList.map((vedio) {
-        final title = removeHtml.delHtml(vedio['title']);
-        final url = removeHtml.delHtml(vedio['url']);
+      videoList = videoList.map((video) {
+        final title = removeHtml.delHtml(video['title']);
+        final url = removeHtml.delHtml(video['url']);
         return {
           'title': title,
           'url': url,
