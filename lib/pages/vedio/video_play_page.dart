@@ -1,9 +1,11 @@
+import 'package:daum_api/model/video_model.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+// ignore: must_be_immutable
 class VideoPlayPage extends StatefulWidget {
   VideoPlayPage({required this.videoUrl, super.key});
-  final String videoUrl;
+  String videoUrl;
 
   @override
   State<VideoPlayPage> createState() => _VideoPlayPageState();
@@ -17,11 +19,8 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
   @override
   void initState() {
     super.initState();
-    final String? videoId = YoutubePlayer.convertUrlToId(widget.videoUrl);
-    print(videoId);
-
     youtubePlayerController = YoutubePlayerController(
-      initialVideoId: videoId!,
+      initialVideoId: VideoModel().extractVideoId(widget.videoUrl),
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: true,
