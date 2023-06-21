@@ -65,4 +65,11 @@ class VideoModel {
       print('api error: ${response.statusCode}');
     }
   }
+
+  // v 다음에 나오는거 추출
+  String extractVideoId(String url) {
+    Uri uri = Uri.parse(url);
+    String videoId = uri.queryParameters['v'] ?? '';
+    return videoId;
+  }
 }
