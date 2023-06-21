@@ -68,7 +68,7 @@ class _VideoState extends State<VideoPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              VideoPlayPage(videoUrl: videoData['url']!),
+                              VideoPlayPage(videoUrl: videoData['url']),
                         ),
                       );
                     },
